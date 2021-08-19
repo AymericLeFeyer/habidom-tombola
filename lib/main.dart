@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habirandom/constants/colors.dart';
 import 'package:habirandom/ui/home.dart';
 
 void main() {
@@ -10,7 +11,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Habirandom',
-      theme: ThemeData(primarySwatch: Colors.blue, fontFamily: "Roboto"),
+      theme: ThemeData(
+          primarySwatch: Colors.blue,
+          fontFamily: "Roboto",
+          splashColor: MyColors.orange,
+          canvasColor: MyColors.orange,
+          hoverColor: MyColors.orange),
       home: HomePage(),
       debugShowCheckedModeBanner: false,
     );

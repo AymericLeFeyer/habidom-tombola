@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habirandom/constants/colors.dart';
+import 'package:habirandom/ui/components/animatedBackground.dart';
 import 'package:habirandom/ui/components/texts.dart';
 
 class HomePage extends StatefulWidget {
@@ -22,22 +23,21 @@ class _HomePageState extends State<HomePage> {
       body: Stack(children: [
         Container(
             height: MediaQuery.of(context).size.height,
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                MyColors.white,
-                MyColors.orange,
-              ],
-            ))),
+            child: AnimatedBackground()),
         SingleChildScrollView(
           child: Column(children: [
             Padding(
               padding: const EdgeInsets.all(24.0),
               child: Column(children: [
-                Image.asset("assets/logo-2.png"),
-                Divider(),
+                Container(
+                  decoration: BoxDecoration(
+                      color: MyColors.white,
+                      borderRadius: BorderRadius.circular(20)),
+                  child: Image.asset(
+                    "assets/logo-2.png",
+                  ),
+                ),
+                SizedBox(height: 50),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
