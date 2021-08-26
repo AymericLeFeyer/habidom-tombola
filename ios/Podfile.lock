@@ -289,12 +289,15 @@ PODS:
     - nanopb/encode (= 1.30906.0)
   - nanopb/decode (1.30906.0)
   - nanopb/encode (1.30906.0)
+  - path_provider (0.0.1):
+    - Flutter
   - PromisesObjC (1.2.12)
 
 DEPENDENCIES:
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - Flutter (from `Flutter`)
+  - path_provider (from `.symlinks/plugins/path_provider/ios`)
 
 SPEC REPOS:
   trunk:
@@ -319,6 +322,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_core/ios"
   Flutter:
     :path: Flutter
+  path_provider:
+    :path: ".symlinks/plugins/path_provider/ios"
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
@@ -336,6 +341,7 @@ SPEC CHECKSUMS:
   gRPC-Core: 4afa11bfbedf7cdecd04de535a9e046893404ed5
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
+  path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
 
 PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c

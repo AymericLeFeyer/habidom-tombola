@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/state_manager.dart';
+import 'package:get/get.dart';
 import 'package:habirandom/constants/colors.dart';
 import 'package:habirandom/controllers/users.dart';
 import 'package:habirandom/models/user.dart';
 import 'package:habirandom/ui/components/animatedBackground.dart';
 import 'package:habirandom/ui/components/texts.dart';
 
-class FormPage extends StatefulWidget {
-  @override
-  _FormPageState createState() => _FormPageState();
-}
-
-class _FormPageState extends State<FormPage> {
+class FormPage extends StatelessWidget {
   int peopleCount;
   ScrollController controller = new ScrollController();
-  bool scrollToBottom = true;
+  Rx<bool> scrollToBottom = true.obs;
   String firstname;
   String lastname;
   String email;
@@ -21,23 +18,17 @@ class _FormPageState extends State<FormPage> {
   String project;
 
   @override
-  void initState() {
-    super.initState();
+  Widget build(BuildContext context) {
+    final UserController userController = Get.find<UserController>();
+
     controller.addListener(() {
       if ((controller.position.pixels < 200)) {
-        setState(() {
-          scrollToBottom = true;
-        });
+        scrollToBottom.value = true;
       } else if (controller.position.pixels > 200) {
-        setState(() {
-          scrollToBottom = false;
-        });
+        scrollToBottom.value = false;
       }
     });
-  }
 
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(children: [
         Container(
@@ -78,26 +69,20 @@ class _FormPageState extends State<FormPage> {
                       label: "Prénom",
                       icon: Icon(Icons.person, size: 40),
                       onChanged: (value) {
-                        setState(() {
-                          firstname = value;
-                        });
+                        firstname = value;
                       }),
                   subTitle(subtitle: "Comment vous contacter ?"),
                   formField(
                       label: "Email",
                       icon: Icon(Icons.mail, size: 40),
                       onChanged: (value) {
-                        setState(() {
-                          email = value;
-                        });
+                        email = value;
                       }),
                   formField(
                       label: "Téléphone",
                       icon: Icon(Icons.phone, size: 40),
                       onChanged: (value) {
-                        setState(() {
-                          phone = value;
-                        });
+                        phone = value;
                       }),
                   subTitle(subtitle: "Un projet à nous faire part ?"),
                   formField(
@@ -105,9 +90,7 @@ class _FormPageState extends State<FormPage> {
                     maxLines: 5,
                     minLines: 5,
                     onChanged: (value) {
-                      setState(() {
-                        project = value;
-                      });
+                      project = value;
                     },
                     icon: Icon(Icons.folder, size: 40),
                   ),
@@ -121,18 +104,22 @@ class _FormPageState extends State<FormPage> {
                   ),
                   TextButton(
                       onPressed: () {
-                        UserController.addUser(new User(
-                            email: email,
-                            firstname: firstname,
-                            lastname: lastname,
-                            project: project,
-                            phone: phone));
-                        email = "";
-                        firstname = "";
-                        lastname = "";
-                        phone = "";
-                        project = "";
-                        Navigator.pop(context);
+                        if (email != null && email != "") {
+                          userController.addUser(new User(
+                              email: email,
+                              firstname: firstname,
+                              lastname: lastname,
+                              project: project,
+                              phone: phone));
+                          email = "";
+                          firstname = "";
+                          lastname = "";
+                          phone = "";
+                          project = "";
+                          Navigator.pop(context);
+                        } else {
+                          Get.snackbar("Veuillez entrer un email", "");
+                        }
                       },
                       style: ButtonStyle(
                           shape:
@@ -160,22 +147,24 @@ class _FormPageState extends State<FormPage> {
       floatingActionButton: Container(
         width: 100,
         height: 100,
-        child: FittedBox(
-          child: FloatingActionButton(
-            child: Icon(
-              scrollToBottom ? Icons.arrow_downward : Icons.arrow_upward,
-              color: Colors.white,
-              size: 42,
-            ),
-            onPressed: () {
-              controller.animateTo(
-                scrollToBottom ? 800 : 0.0,
-                curve: Curves.easeOut,
-                duration: const Duration(milliseconds: 500),
-              );
-            },
-          ),
-        ),
+        child: Obx(() => FittedBox(
+              child: FloatingActionButton(
+                child: Icon(
+                  scrollToBottom.value
+                      ? Icons.arrow_downward
+                      : Icons.arrow_upward,
+                  color: Colors.white,
+                  size: 42,
+                ),
+                onPressed: () {
+                  controller.animateTo(
+                    scrollToBottom.value ? 800 : 0.0,
+                    curve: Curves.easeOut,
+                    duration: const Duration(milliseconds: 500),
+                  );
+                },
+              ),
+            )),
       ),
     );
   }
@@ -190,6 +179,7 @@ Widget formField(
         minLines: minLines,
         maxLines: maxLines,
         onChanged: onChanged,
+        autocorrect: false,
         decoration: InputDecoration(
           prefixIcon: icon,
           fillColor: MyColors.white,

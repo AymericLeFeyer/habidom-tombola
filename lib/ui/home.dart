@@ -1,23 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:habirandom/constants/colors.dart';
+import 'package:habirandom/controllers/users.dart';
 import 'package:habirandom/ui/components/animatedBackground.dart';
 import 'package:habirandom/ui/components/fadeTransition.dart';
 import 'package:habirandom/ui/components/texts.dart';
 import 'package:habirandom/ui/form.dart';
 
-class HomePage extends StatefulWidget {
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
+class HomePage extends StatelessWidget {
   int peopleCount;
 
-  @override
-  void initState() {
-    super.initState();
-    this.peopleCount = 0;
-  }
+  final UserController userController = Get.find<UserController>();
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +78,6 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
                 SizedBox(height: 50),
-                title("Déjà ${peopleCount} participants !"),
               ]),
             ),
           ]),
