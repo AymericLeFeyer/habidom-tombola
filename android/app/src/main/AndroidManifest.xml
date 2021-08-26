@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.habirandom">
+    package="fr.habidom.habirandom">
    <application
         android:label="habirandom"
         android:icon="@mipmap/ic_launcher">

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:habirandom/constants/colors.dart';
 import 'package:habirandom/ui/components/animatedBackground.dart';
+import 'package:habirandom/ui/components/fadeTransition.dart';
 import 'package:habirandom/ui/components/texts.dart';
+import 'package:habirandom/ui/form.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -30,11 +32,8 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.all(24.0),
               child: Column(children: [
                 Container(
-                  decoration: BoxDecoration(
-                      color: MyColors.white,
-                      borderRadius: BorderRadius.circular(20)),
                   child: Image.asset(
-                    "assets/logo-2.png",
+                    "assets/habidom.png",
                   ),
                 ),
                 SizedBox(height: 50),
@@ -52,9 +51,11 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ],
                 ),
-                SizedBox(height: 150),
+                SizedBox(height: 100),
                 TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context, FadeRoute(page: FormPage()));
+                    },
                     style: ButtonStyle(
                         shape:
                             MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -62,13 +63,28 @@ class _HomePageState extends State<HomePage> {
                                     borderRadius: BorderRadius.circular(18.0),
                                     side: BorderSide(color: MyColors.orange))),
                         backgroundColor:
-                            MaterialStateProperty.all(MyColors.white)),
+                            MaterialStateProperty.all(MyColors.orange)),
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: title("Je participe !",
-                          size: 56, color: MyColors.orange),
+                          size: 56, color: MyColors.white),
                     )),
-                SizedBox(height: 150),
+                SizedBox(height: 100),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                        width: MediaQuery.of(context).size.width / 3.5,
+                        child: Image.asset("assets/1.png")),
+                    Container(
+                        width: MediaQuery.of(context).size.width / 3.5,
+                        child: Image.asset("assets/2.png")),
+                    Container(
+                        width: MediaQuery.of(context).size.width / 3.5,
+                        child: Image.asset("assets/3.png")),
+                  ],
+                ),
+                SizedBox(height: 50),
                 title("Déjà ${peopleCount} participants !"),
               ]),
             ),

@@ -3,7 +3,7 @@ import 'package:habirandom/constants/colors.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'package:supercharged/supercharged.dart';
 
-enum AniProps { x, y }
+enum AniProps { center }
 
 class AnimatedBackground extends StatelessWidget {
   final animationFactor = 5;
@@ -12,19 +12,11 @@ class AnimatedBackground extends StatelessWidget {
   Widget build(BuildContext context) {
     final tween = TimelineTween<AniProps>()
       ..addScene(begin: 0.seconds, duration: (1 * animationFactor).seconds)
-          .animate(AniProps.x, tween: (-1.0).tweenTo(1.0))
+          .animate(AniProps.center, tween: (0.5).tweenTo(1.0))
       ..addScene(
               begin: (1 * animationFactor).seconds,
               duration: (1 * animationFactor).seconds)
-          .animate(AniProps.y, tween: (-1.0).tweenTo(1.0))
-      ..addScene(
-              begin: (2 * animationFactor).seconds,
-              duration: (1 * animationFactor).seconds)
-          .animate(AniProps.x, tween: (1.0).tweenTo(-1.0))
-      ..addScene(
-              begin: (3 * animationFactor).seconds,
-              duration: (1 * animationFactor).seconds)
-          .animate(AniProps.y, tween: (1.0).tweenTo(-1.0));
+          .animate(AniProps.center, tween: (1.0).tweenTo(0.5));
 
     return LoopAnimation(
       tween: tween,
@@ -32,10 +24,10 @@ class AnimatedBackground extends StatelessWidget {
       builder: (context, child, value) {
         return Container(
           decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin:
-                      Alignment(value.get(AniProps.x), value.get(AniProps.y)),
-                  end: Alignment.center,
+              gradient: RadialGradient(radius: value.get(AniProps.center),
+                  // begin:
+                  //     Alignment(value.get(AniProps.x), value.get(AniProps.y)),
+                  // end: Alignment.center,
                   colors: [MyColors.white, MyColors.orange])),
         );
       },
